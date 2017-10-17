@@ -28,3 +28,8 @@ script:
     docker exec --tty "$(cat ${container_id})" env TERM=xterm
     ansible-playbook /etc/ansible/roles/ansible-backuppc/tests/test.yml
     --syntax-check
+
+  # Run the role/playbook with ansible-playbook.
+   - >
+     docker exec --tty "$(cat ${container_id})" env TERM=xterm
+       ansible-playbook /etc/ansible/roles/ansible-backuppc/tests/test.yml
