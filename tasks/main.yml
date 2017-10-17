@@ -1,0 +1,11 @@
+---
+# tasks file for ansible-backuppc
+- name: 'Install EPEL repository'
+  yum:
+    name: 'epel-release'
+    state: 'latest'
+    
+- name: 'Install backuppc package'
+  yum:
+    name: 'backuppc'
+    state: 'latest'

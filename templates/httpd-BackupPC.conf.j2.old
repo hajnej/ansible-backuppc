@@ -1,0 +1,37 @@
+<Directory       /usr/share/BackupPC/>
+# BackupPC requires valid authentication in order for the web interface to
+# function properly.  One can view the web interface without authentication
+# though all functionality is disabled.
+# 
+# htpasswd -c /etc/BackupPC/apache.users yourusername
+# 
+
+AuthType Basic
+AuthUserFile /etc/BackupPC/apache.users
+AuthName "BackupPC"
+
+<IfModule mod_authz_core.c>
+  # Apache 2.4
+  <RequireAll>
+    Require valid-user
+    <RequireAny>
+      Require local
+    </RequireAny>
+  </RequireAll>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  # Apache 2.2
+  order deny,allow
+  deny from all
+  allow from 127.0.0.1
+  allow from ::1
+  require valid-user
+</IfModule>
+
+
+</Directory>
+
+
+Alias           /BackupPC/images        /usr/share/BackupPC/html/
+ScriptAlias     /BackupPC               /usr/share/BackupPC/sbin/BackupPC_Admin
+ScriptAlias     /backuppc               /usr/share/BackupPC/sbin/BackupPC_Admin
